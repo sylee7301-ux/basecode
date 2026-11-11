@@ -1,5 +1,7 @@
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "smm_common.h"
 #include "smm_object.h"
 #include "smm_database.h"
@@ -62,7 +64,7 @@ int main(int argc, const char * argv[]) {
     food_nr = 0;
     festival_nr = 0;
 
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
 
     // 1. import parameters
     // 1-1. boardConfig
@@ -162,10 +164,10 @@ int main(int argc, const char * argv[]) {
 
         printf("node %d : %s, %s, %i, %i\n",
                i,
-               smmObj_getName(node_idx),
-               smmNodeName[node_type],
-               smmObj_getCredit(node_idx),
-               smmObj_getEnergy(node_idx));
+               smmObj_getBoardName(i),
+               smmNodeName[smmObj_getBoardType(i)],
+               smmObj_getBoardCredit(i),
+               smmObj_getBoardEnergy(i));
     }
 
     return 0;

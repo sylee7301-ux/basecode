@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 #include "smm_common.h"
 #include "smm_object.h"
@@ -30,22 +31,24 @@ static char board_name[MAX_NODE][MAX_CHARNAME];
 static int board_type[MAX_NODE];
 static int board_credit[MAX_NODE];
 static int board_energy[MAX_NODE];
-static int board_nr=0;
+static int board_nr = 0;
 
 //object generation
 void smmObj_genNode(char* name, int type, int credit, int energy){
-    strcpy{&board_name[board_nr][0], name};
-    board_type[board_nr]= type;
-    board_credit[board_nr]= credit;
-    board_energy[board_nr]= energy;
+    if (board_nr < MAX_NODE) {
+        strcpy{&board_name[board_nr][0], name};
+        board_type[board_nr]= type;
+        board_credit[board_nr]= credit;
+        board_energy[board_nr]= energy;
 
-    board_nr++;
+        board_nr++;
+    }
 }
 
 
 //member retrieving
 char* smmObj_getBoardName(int idx) {
-    return board_name[idx][0];
+    return board_name[idx];
 }
 
 char* smmObj_getBoardType(int idx) {
