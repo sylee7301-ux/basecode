@@ -4,6 +4,8 @@
 #define MAX_CHARNAME 100
 #define MAX_NODETYPE 7
 #define MAX_NODES 50
+#define MAX_PLAYER 10
+
 
 // 노드 유형 정의
 #define SMMNODE_TYPE_LECTURE      0

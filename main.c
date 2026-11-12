@@ -14,6 +14,13 @@
 static int board_nr;
 static int food_nr;
 static int festival_nr;
+static int player_nr;
+
+static int player_credit[MAX_PLAYER];
+static int player_enregy[MAX_PLAYER];
+static int player_position[MAX_PLAYER];
+static int player_name[MAX_PLAYER][MAX_CHARNAME];
+
 
 //function prototypes
 #if 0
@@ -27,6 +34,38 @@ smmGrade_e takeLecture(int player, char *lectureName, int credit); //take the le
 void* findGrade(int player, char *lectureName); //find the grade from the player
 void printGrades(int player); //print all the grade history of the player
 #endif
+
+void generatePlayers(int n, int initEnergy){
+    int i;
+
+    for (i=0;i<n;i++){
+        printf("%i'th player name:");
+        scanf("%s",&player_name[i][0]);
+        player_credit[i] = 0;
+        player_energy[i] = initEnergy;
+        player_position[i] = 0;
+    }
+
+}
+
+void printGrades(int player){
+
+    for (i=0;i<player_nr;i++){
+        printf("%i credit: %i\n",player_name[i], player_credit[i]);
+    }
+}
+
+void goForward(int player, int step){
+    
+    int i;
+    for (i<0; i<step; i++){
+
+        player_position[player]=(player_position[player]+1)%board_nr;
+        printf("%s->",smmObj_getBoardName(player_position[player]);
+    }
+    player_position[player]+=step;
+}
+
 
 int rolldie(int player)
 {
@@ -64,7 +103,7 @@ int main(int argc, const char * argv[]) {
     food_nr = 0;
     festival_nr = 0;
 
-    srand((unsigned int)time(NULL));
+    srand(time(NULL));
 
     // 1. import parameters
     // 1-1. boardConfig
@@ -120,14 +159,19 @@ int main(int argc, const char * argv[]) {
     printf("Total number of festival cards : %i\n", festival_nr);
 
     //2. Player configuration -----------------------------------------
-    /*
+    
     do
     {
         //input player number to player_nr
+        printf("input player no.:");
+        scanf("%i, &player_nr");
+
+        fflush(stdin);
+
     }
-    while ();
-    generatePlayers();
-    */
+    while (player<=0 || player > MAX_PLAYER);
+    generatePlayers(player_nr, );
+    
 
     //3. SM Marbld game starts
     while () //is anybody graduated?
@@ -145,10 +189,10 @@ int main(int argc, const char * argv[]) {
             smmObj_getBordName(pos),
             smmObj_getBordType(pos),
             smmObj_getBordCredit(pos),
-            smmObj_getBordEnergy(pos),
+            smmObj_getBordEnergy(pos));
         
         //4-3. go forward
-        //goForward();
+        goForward();
 
         //4-4. take action at the destination node of the board
         //actionNode();
