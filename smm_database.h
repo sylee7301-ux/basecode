@@ -1,14 +1,6 @@
 #ifndef smm_database_h
 #define smm_database_h
 
-#include "smm_common.h"
-
-void smmdb_addNode(int node_idx);
-int smmdb_getNode(int index);
-int smmdb_getNodeCount(void);
-
-#endif
-
 #define LISTNO_NODE             0
 #define LISTNO_FOODCARD         1
 #define LISTNO_FESTCARD         2

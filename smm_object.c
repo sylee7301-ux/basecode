@@ -1,105 +1,115 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "smm_common.h"
 #include "smm_object.h"
 
-#define MAX_NODETYPE    7
-#define MAX_GRADE       9
-
-#define MAX_NODE        50
-
-
-#define SMMNODE_TYPE_LECTURE       0
-#define SMMNODE_TYPE_RESTAURANT    1
-#define SMMNODE_TYPE_LABORATORY    2
-#define SMMNODE_TYPE_HOME          3
-#define SMMNODE_TYPE_GOTOLAB       4
-#define SMMNODE_TYPE_FOODCHANCE    5
-#define SMMNODE_TYPE_FESTIVAL      6
-
-#define SMMNODE_GRADE_APLUS        0
-#define SMMNODE_GRADE_AZERO        1
-#define SMMNODE_GRADE_AMINUS       2
-#define SMMNODE_GRADE_BPLUS        3
-#define SMMNODE_GRADE_BZERO        4
-#define SMMNODE_GRADE_BMINUS       5
-#define SMMNODE_GRADE_CPLUS        6
-#define SMMNODE_GRADE_CZERO        7
-#define SMMNODE_GRADE_CMINUS       8
-
-
 static char smmNodeName[MAX_NODETYPE][MAX_CHARNAME] = {
-    "lecture";
-    "restaurant";
-    "laboratory";
-    "home";
-    "gotolab";
-    "foodChance";
-    "festival";
-}
+    "lecture",
+    "restaurant",
+    "laboratory",
+    "home",
+    "gotoLab",
+    "foodChance",
+    "festival"
+};
 
 static char smmGradeName[MAX_GRADE][MAX_CHARNAME] = {
-    "A+";
-    "A0";
-    "A-";
-    "B+";
-    "B0";
-    "B-";
-    "C+";
-    "C0";
-    "C-";
-}
+    "A+",
+    "A0",
+    "A-",
+    "B+",
+    "B0",
+    "B-",
+    "C+",
+    "C0",
+    "C-"
+};
 
-#if 0
-static char board_name[MAX_NODE][MAX_CHARNAME];
-static int board_type[MAX_NODE];
-static int board_credit[MAX_NODE];
-static int board_energy[MAX_NODE];
-#endif
-typedef struct{
+static float smmGradeScore[MAX_GRADE] = {
+    4.3f,
+    4.0f,
+    3.7f,
+    3.3f,
+    3.0f,
+    2.7f,
+    2.3f,
+    2.0f,
+    1.7f
+};
+
+typedef struct {
     char name[MAX_CHARNAME];
+    int objType;
     int type;
     int credit;
     int energy;
-} smmObj_node_t;
+    int grade;
+} smmObject_t;
 
-smmObj_node_t smmObj_boardNode[MAX_NODE];
+// object generation
+void* smmObj_genObject(char* name, int objType, int type, int credit, int energy, int grade)
+{
+    smmObject_t* ptr = (smmObject_t*)malloc(sizeof(smmObject_t));
+    if (ptr == NULL)
+    {
+        printf("[ERROR] failed to create an object!\n");
+        return NULL;
+    }
 
-static int board_nr = 0;
+    strcpy(ptr->name, name);
+    ptr->objType = objType;
+    ptr->type = type;
+    ptr->credit = credit;
+    ptr->energy = energy;
+    ptr->grade = grade;
 
-//object generation
-void smmObj_genNode(char* name, int type, int credit, int energy){
-        strcpy{&smmObj_boardNode[board_nr].name[0], name};
-        smmObj_boardNode[board_nr].type= type;
-        smmObj_boardNode[board_nr].credit= credit;
-        smmObj_boardNode[board_nr].energy= energy;
-
-        board_nr++;
+    return (void*)ptr;
 }
 
-
-//member retrieving
-char* smmObj_getBoardName(int idx) {
-    return &smmObj_boardNode[idx].name[0];
+// member retrieving
+char* smmObj_getName(void* obj)
+{
+    smmObject_t* ptr = (smmObject_t*)obj;
+    return ptr->name;
 }
 
-int* smmObj_getBoardType(int idx) {
-    return smmObj_boardNode[idx].type;
+int smmObj_getNdType(void* obj)
+{
+    smmObject_t* ptr = (smmObject_t*)obj;
+    return ptr->type;
 }
 
-int* smmObj_getBoardCredit(int idx) {
-    return smmObj_boardNode[idx].credit;
+int smmObj_getCredit(void* obj)
+{
+    smmObject_t* ptr = (smmObject_t*)obj;
+    return ptr->credit;
 }
 
-int* smmObj_getBoardEnergy(int idx) {
-    return smmObj_boardNode[idx].energy;
+int smmObj_getEnergy(void* obj)
+{
+    smmObject_t* ptr = (smmObject_t*)obj;
+    return ptr->energy;
 }
 
-//element to string
-char* smmObj_getNodeName(int type) {
-    return smmNodename[type];
+int smmObj_getGrade(void* obj)
+{
+    smmObject_t* ptr = (smmObject_t*)obj;
+    return ptr->grade;
 }
 
-char* smmObj_getGradeName(int grade) {
-    return smmGradename[grade];
+// element to string
+char* smmObj_getNodeName(int type)
+{
+    return smmNodeName[type];
+}
+
+char* smmObj_getGradeName(int grade)
+{
+    return smmGradeName[grade];
+}
+
+float smmObj_getGradeScore(int grade)
+{
+    return smmGradeScore[grade];
 }
