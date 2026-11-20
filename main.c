@@ -16,10 +16,22 @@ static int food_nr;
 static int festival_nr;
 static int player_nr;
 
+#if 0
 static int player_credit[MAX_PLAYER];
-static int player_enregy[MAX_PLAYER];
+static int player_energy[MAX_PLAYER];
 static int player_position[MAX_PLAYER];
 static int player_name[MAX_PLAYER][MAX_CHARNAME];
+#endif
+
+typedef struct{
+    int credit;
+    int energy;
+    int position;
+    int name[MAX_CHARNAME];
+    int isGraduate;
+} smm_player_t;
+
+smm_player_t player[MAX_PLAYER];
 
 
 //function prototypes
@@ -40,10 +52,12 @@ void generatePlayers(int n, int initEnergy){
 
     for (i=0;i<n;i++){
         printf("%i'th player name:");
-        scanf("%s",&player_name[i][0]);
-        player_credit[i] = 0;
-        player_energy[i] = initEnergy;
-        player_position[i] = 0;
+        scanf("%s",&player[i].name[0]);
+        player[i].credit[i] = 0;
+        player[i].energy[i] = initEnergy;
+        player[i].position[i] = 0;
+        player[i].isGraduate = 0;
+
     }
 
 }
@@ -51,7 +65,7 @@ void generatePlayers(int n, int initEnergy){
 void printGrades(int player){
 
     for (i=0;i<player_nr;i++){
-        printf("%i credit: %i\n",player_name[i], player_credit[i]);
+        printf("%i credit: %i\n",player[i].name[i], player.[i]credit[i]);
     }
 }
 
@@ -60,10 +74,10 @@ void goForward(int player, int step){
     int i;
     for (i<0; i<step; i++){
 
-        player_position[player]=(player_position[player]+1)%board_nr;
-        printf("%s->",smmObj_getBoardName(player_position[player]);
+        player_position[player]=(player[i].position[player]+1)%board_nr;
+        printf("%s->",smmObj_getBoardName(player[i].position[player]);
     }
-    player_position[player]+=step;
+    player[i].position[player]+=step;
 }
 
 
@@ -79,18 +93,20 @@ int rolldie(int player)
         printGrades(player);
 #endif
 
-    return (rand() % 6 + 1);
+    return (rand()%MAX_DIE + 1);
 }
 
 //action code when a player stays at a node
 void actionNode(int player)
 {
-    // switch(type)
-    // {
-    //     //case lecture:
-    //     default:
-    //         break;
-    // }
+    int type;
+
+    switch(type)
+    {
+        //case lecture:
+         default:
+            break;
+    }
 }
 
 int main(int argc, const char * argv[]) {
@@ -141,11 +157,10 @@ int main(int argc, const char * argv[]) {
     fclose(fp);
     printf("Total number of food cards : %i\n", food_nr);
 
-    //festival card config
+    //3. festival card config
     if ((fp = fopen(FESTFILEPATH, "r")) == NULL)
     {
         printf("[ERROR] failed to open %s. This file should be in the same directory of SMMarble.exe.\n", FESTFILEPATH);
-        getchar();
         return -1;
     }
 
@@ -195,7 +210,7 @@ int main(int argc, const char * argv[]) {
         goForward();
 
         //4-4. take action at the destination node of the board
-        //actionNode();
+        actionNode()
 
         //4-5. next turn
         

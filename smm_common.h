@@ -1,11 +1,17 @@
-#ifndef SMM_COMMON_H
-#define SMM_COMMON_H
+#ifndef smm_common_h
+#define smm_common_h
 
-#define MAX_CHARNAME 100
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_CHARNAME 200
+
+#define GRADUATE_CREDIT             30
+#define MAX_DIE                     6
+#define MAX_PLAYER                  10
+
 #define MAX_NODETYPE 7
 #define MAX_NODES 50
-#define MAX_PLAYER 10
-
 
 // 노드 유형 정의
 #define SMMNODE_TYPE_LECTURE      0

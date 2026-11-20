@@ -50,18 +50,29 @@ static char smmGradeName[MAX_GRADE][MAX_CHARNAME] = {
     "C-";
 }
 
+#if 0
 static char board_name[MAX_NODE][MAX_CHARNAME];
 static int board_type[MAX_NODE];
 static int board_credit[MAX_NODE];
 static int board_energy[MAX_NODE];
+#endif
+typedef struct{
+    char name[MAX_CHARNAME];
+    int type;
+    int credit;
+    int energy;
+} smmObj_node_t;
+
+smmObj_node_t smmObj_boardNode[MAX_NODE];
+
 static int board_nr = 0;
 
 //object generation
 void smmObj_genNode(char* name, int type, int credit, int energy){
-        strcpy{&board_name[board_nr][0], name};
-        board_type[board_nr]= type;
-        board_credit[board_nr]= credit;
-        board_energy[board_nr]= energy;
+        strcpy{&smmObj_boardNode[board_nr].name[0], name};
+        smmObj_boardNode[board_nr].type= type;
+        smmObj_boardNode[board_nr].credit= credit;
+        smmObj_boardNode[board_nr].energy= energy;
 
         board_nr++;
 }
@@ -69,24 +80,24 @@ void smmObj_genNode(char* name, int type, int credit, int energy){
 
 //member retrieving
 char* smmObj_getBoardName(int idx) {
-    return board_name[idx][0];
+    return &smmObj_boardNode[idx].name[0];
 }
 
 int* smmObj_getBoardType(int idx) {
-    return board_type[idx];
+    return smmObj_boardNode[idx].type;
 }
 
 int* smmObj_getBoardCredit(int idx) {
-    return board_credit[idx];
+    return smmObj_boardNode[idx].credit;
 }
 
 int* smmObj_getBoardEnergy(int idx) {
-    return board_energy[idx];
+    return smmObj_boardNode[idx].energy;
 }
 
 //element to string
 char* smmObj_getNodeName(int type) {
-    return getNodename[type];
+    return smmNodename[type];
 }
 
 char* smmObj_getGradeName(int grade) {

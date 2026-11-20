@@ -1,9 +1,32 @@
-#ifndef SMM_OBJECT_H
-#define SMM_OBJECT_H
+#ifndef smm_object_h
+#define smm_object_h
+
+/* node type :
+    lecture,
+    restaurant,
+    laboratory,
+    home,
+    experiment,
+    foodChance,
+    festival
+*/
+
+
+/* grade :
+    A+,
+    A0,
+    A-,
+    B+,
+    B0,
+    B-,
+    C+,
+    C0,
+    C-
+*/s
 
 #include "smm_common.h"
 
-// 객체 생성
+//object generation
 void smmObj_genNode(char* name, int type, int credit, int energy);
 
 //member retrieving
